@@ -1,0 +1,113 @@
+erDiagram
+  menu_categories {
+    bigint id PK
+    varchar code UK
+  }
+  menu_items {
+    bigint id PK
+    bigint category_id FK
+    varchar sku UK
+  }
+  restaurant_tables {
+    bigint id PK
+    varchar table_no UK
+    enum status 
+  }
+  table_reservations {
+    bigint id PK
+    bigint table_id FK
+    bigint guest_id FK
+    enum status 
+    bigint created_by FK
+  }
+  orders {
+    bigint id PK
+    varchar order_no UK
+    enum status 
+    bigint table_id FK
+    bigint table_reservation_id FK
+    bigint stay_id FK
+    bigint room_id FK
+    bigint guest_id FK
+    bigint discount_approved_by FK
+    varchar idempotency_key UK
+    bigint placed_by FK
+  }
+  order_items {
+    bigint id PK
+    bigint order_id FK
+    bigint menu_item_id FK
+    enum status 
+  }
+  order_status_history {
+    bigint id PK
+    bigint order_id FK
+    bigint changed_by FK
+  }
+  order_voids {
+    bigint id PK
+    bigint order_id FK
+    bigint order_item_id FK
+    bigint approval_request_id FK
+    bigint voided_by FK
+    bigint approved_by FK
+  }
+  room_service_charges {
+    bigint id PK
+    bigint order_id FK
+    bigint folio_id FK
+    bigint folio_charge_id FK
+    bigint posted_by FK
+  }
+  order_payments {
+    bigint id PK
+    bigint order_id FK
+    bigint payment_id FK
+  }
+  order_feedback {
+    bigint id PK
+    bigint order_id FK
+    bigint guest_id FK
+  }
+  guests {
+    bigint id PK
+  }
+  rooms {
+    bigint id PK
+  }
+  stays {
+    bigint id PK
+  }
+  payments {
+    bigint id PK
+  }
+  approval_requests {
+    bigint id PK
+  }
+  folio_charges {
+    bigint id PK
+  }
+  folios {
+    bigint id PK
+  }
+  menu_categories ||--o{ menu_items : "category_id"
+  guests |o--o{ orders : "guest_id"
+  rooms |o--o{ orders : "room_id"
+  stays |o--o{ orders : "stay_id"
+  restaurant_tables |o--o{ orders : "table_id"
+  table_reservations |o--o{ orders : "table_reservation_id"
+  guests |o--o{ order_feedback : "guest_id"
+  orders ||--o{ order_feedback : "order_id"
+  menu_items ||--o{ order_items : "menu_item_id"
+  orders ||--o{ order_items : "order_id"
+  orders ||--o{ order_payments : "order_id"
+  payments ||--o{ order_payments : "payment_id"
+  orders ||--o{ order_status_history : "order_id"
+  approval_requests |o--o{ order_voids : "approval_request_id"
+  orders ||--o{ order_voids : "order_id"
+  order_items |o--o{ order_voids : "order_item_id"
+  folio_charges ||--o{ room_service_charges : "folio_charge_id"
+  folios ||--o{ room_service_charges : "folio_id"
+  orders ||--o{ room_service_charges : "order_id"
+  guests |o--o{ table_reservations : "guest_id"
+  restaurant_tables ||--o{ table_reservations : "table_id"

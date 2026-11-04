@@ -1,0 +1,105 @@
+erDiagram
+  departments {
+    bigint id PK
+    varchar code UK
+    varchar name UK
+  }
+  users {
+    bigint id PK
+    bigint department_id FK
+    varchar employee_no UK
+    varchar username UK
+    varchar email UK
+    enum status 
+    bigint created_by FK
+  }
+  roles {
+    bigint id PK
+    varchar code UK
+    bigint department_id FK
+  }
+  permissions {
+    bigint id PK
+    varchar code UK
+  }
+  user_roles {
+    bigint user_id PK
+    bigint role_id PK
+    bigint assigned_by FK
+  }
+  role_permissions {
+    bigint role_id PK
+    bigint permission_id PK
+  }
+  user_departments {
+    bigint user_id PK
+    bigint department_id PK
+  }
+  login_attempts {
+    bigint id PK
+    bigint user_id FK
+  }
+  sessions {
+    varchar id PK
+    bigint user_id FK
+  }
+  password_resets {
+    bigint id PK
+    bigint user_id FK
+    char token_hash UK
+  }
+  system_settings {
+    varchar setting_key PK
+    bigint updated_by FK
+  }
+  notifications {
+    bigint id PK
+    bigint created_by FK
+  }
+  notification_recipients {
+    bigint id PK
+    bigint notification_id FK
+    bigint user_id FK
+  }
+  audit_logs {
+    bigint id PK
+    bigint user_id FK
+  }
+  error_logs {
+    bigint id PK
+    bigint user_id FK
+  }
+  approval_requests {
+    bigint id PK
+    bigint requested_by FK
+    enum status 
+    bigint decided_by FK
+  }
+  approval_history {
+    bigint id PK
+    bigint approval_request_id FK
+    bigint actor_id FK
+  }
+  users ||--o{ approval_history : "actor_id"
+  approval_requests ||--o{ approval_history : "approval_request_id"
+  users |o--o{ approval_requests : "decided_by"
+  users ||--o{ approval_requests : "requested_by"
+  users |o--o{ audit_logs : "user_id"
+  users |o--o{ error_logs : "user_id"
+  users |o--o{ login_attempts : "user_id"
+  users |o--o{ notifications : "created_by"
+  notifications ||--o{ notification_recipients : "notification_id"
+  users ||--o{ notification_recipients : "user_id"
+  users ||--o{ password_resets : "user_id"
+  departments |o--o{ roles : "department_id"
+  permissions ||--o{ role_permissions : "permission_id"
+  roles ||--o{ role_permissions : "role_id"
+  users |o--o{ sessions : "user_id"
+  users |o--o{ system_settings : "updated_by"
+  users |o--o{ users : "created_by"
+  departments ||--o{ users : "department_id"
+  departments ||--o{ user_departments : "department_id"
+  users ||--o{ user_departments : "user_id"
+  users |o--o{ user_roles : "assigned_by"
+  roles ||--o{ user_roles : "role_id"
+  users ||--o{ user_roles : "user_id"

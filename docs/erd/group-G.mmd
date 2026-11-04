@@ -1,0 +1,105 @@
+erDiagram
+  assets {
+    bigint id PK
+    varchar asset_tag UK
+    bigint room_id FK
+    bigint department_id FK
+    varchar serial_no 
+    enum status 
+  }
+  maintenance_requests {
+    bigint id PK
+    varchar request_no UK
+    bigint requested_by FK
+    bigint requesting_department_id FK
+    bigint room_id FK
+    bigint asset_id FK
+    bigint guest_request_id FK
+    enum status 
+  }
+  preventive_schedules {
+    bigint id PK
+    bigint asset_id FK
+  }
+  work_orders {
+    bigint id PK
+    varchar work_order_no UK
+    bigint request_id FK
+    bigint preventive_schedule_id FK
+    bigint room_id FK
+    bigint asset_id FK
+    enum status 
+    bigint verified_by FK
+    bigint created_by FK
+  }
+  work_assignments {
+    bigint id PK
+    bigint work_order_id FK
+    bigint technician_id FK
+    bigint assigned_by FK
+  }
+  work_logs {
+    bigint id PK
+    bigint work_order_id FK
+    bigint user_id FK
+  }
+  work_order_parts {
+    bigint id PK
+    bigint work_order_id FK
+    bigint inventory_item_id FK
+    bigint movement_id FK
+    bigint added_by FK
+  }
+  maintenance_costs {
+    bigint id PK
+    bigint work_order_id FK
+    bigint expense_id FK
+    bigint recorded_by FK
+  }
+  room_defects {
+    bigint id PK
+    bigint room_id FK
+    bigint request_id FK
+    bigint work_order_id FK
+    enum status 
+    bigint reported_by FK
+  }
+  departments {
+    bigint id PK
+  }
+  rooms {
+    bigint id PK
+  }
+  expenses {
+    bigint id PK
+  }
+  guest_requests {
+    bigint id PK
+  }
+  inventory_items {
+    bigint id PK
+  }
+  inventory_movements {
+    bigint id PK
+  }
+  departments |o--o{ assets : "department_id"
+  rooms |o--o{ assets : "room_id"
+  expenses |o--o{ maintenance_costs : "expense_id"
+  work_orders ||--o{ maintenance_costs : "work_order_id"
+  assets |o--o{ maintenance_requests : "asset_id"
+  guest_requests |o--o{ maintenance_requests : "guest_request_id"
+  departments ||--o{ maintenance_requests : "requesting_department_id"
+  rooms |o--o{ maintenance_requests : "room_id"
+  assets ||--o{ preventive_schedules : "asset_id"
+  maintenance_requests |o--o{ room_defects : "request_id"
+  rooms ||--o{ room_defects : "room_id"
+  work_orders |o--o{ room_defects : "work_order_id"
+  work_orders ||--o{ work_assignments : "work_order_id"
+  work_orders ||--o{ work_logs : "work_order_id"
+  assets |o--o{ work_orders : "asset_id"
+  preventive_schedules |o--o{ work_orders : "preventive_schedule_id"
+  maintenance_requests |o--o{ work_orders : "request_id"
+  rooms |o--o{ work_orders : "room_id"
+  inventory_items |o--o{ work_order_parts : "inventory_item_id"
+  inventory_movements |o--o{ work_order_parts : "movement_id"
+  work_orders ||--o{ work_order_parts : "work_order_id"

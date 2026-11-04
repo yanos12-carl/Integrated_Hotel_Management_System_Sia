@@ -1,0 +1,140 @@
+erDiagram
+  inventory_locations {
+    bigint id PK
+    varchar code UK
+    bigint department_id FK
+  }
+  inventory_items {
+    bigint id PK
+    varchar sku UK
+    bigint owning_department_id FK
+    bigint preferred_supplier_id FK
+  }
+  recipes {
+    bigint id PK
+    bigint menu_item_id FK
+  }
+  recipe_ingredients {
+    bigint id PK
+    bigint recipe_id FK
+    bigint inventory_item_id FK
+  }
+  stock_balances {
+    bigint id PK
+    bigint inventory_item_id FK
+    bigint location_id FK
+  }
+  stock_receipts {
+    bigint id PK
+    varchar receipt_no UK
+    bigint supplier_id FK
+    bigint supplier_invoice_id FK
+    bigint location_id FK
+    enum status 
+    varchar idempotency_key UK
+    bigint received_by FK
+  }
+  inventory_batches {
+    bigint id PK
+    bigint inventory_item_id FK
+    bigint location_id FK
+    varchar batch_no 
+    bigint supplier_id FK
+    bigint stock_receipt_id FK
+    enum status 
+  }
+  stock_receipt_items {
+    bigint id PK
+    bigint stock_receipt_id FK
+    bigint inventory_item_id FK
+    bigint batch_id FK
+  }
+  inventory_movements {
+    bigint id PK
+    bigint inventory_item_id FK
+    bigint location_id FK
+    bigint batch_id FK
+    varchar idempotency_key UK
+    bigint performed_by FK
+  }
+  stock_adjustments {
+    bigint id PK
+    varchar adjustment_no UK
+    bigint inventory_item_id FK
+    bigint location_id FK
+    enum status 
+    bigint approval_request_id FK
+    bigint movement_id FK
+    bigint created_by FK
+  }
+  food_waste_records {
+    bigint id PK
+    bigint inventory_item_id FK
+    bigint batch_id FK
+    bigint menu_item_id FK
+    bigint movement_id FK
+    bigint recorded_by FK
+  }
+  temperature_logs {
+    bigint id PK
+    bigint location_id FK
+    bigint checked_by FK
+  }
+  replenishment_requests {
+    bigint id PK
+    varchar request_no UK
+    bigint requesting_department_id FK
+    bigint location_id FK
+    bigint inventory_item_id FK
+    enum status 
+    bigint requested_by FK
+    bigint approved_by FK
+  }
+  menu_items {
+    bigint id PK
+  }
+  suppliers {
+    bigint id PK
+  }
+  departments {
+    bigint id PK
+  }
+  approval_requests {
+    bigint id PK
+  }
+  supplier_invoices {
+    bigint id PK
+  }
+  inventory_batches |o--o{ food_waste_records : "batch_id"
+  inventory_items ||--o{ food_waste_records : "inventory_item_id"
+  menu_items |o--o{ food_waste_records : "menu_item_id"
+  inventory_movements |o--o{ food_waste_records : "movement_id"
+  inventory_items ||--o{ inventory_batches : "inventory_item_id"
+  inventory_locations ||--o{ inventory_batches : "location_id"
+  stock_receipts |o--o{ inventory_batches : "stock_receipt_id"
+  suppliers |o--o{ inventory_batches : "supplier_id"
+  departments |o--o{ inventory_items : "owning_department_id"
+  suppliers |o--o{ inventory_items : "preferred_supplier_id"
+  departments |o--o{ inventory_locations : "department_id"
+  inventory_batches |o--o{ inventory_movements : "batch_id"
+  inventory_items ||--o{ inventory_movements : "inventory_item_id"
+  inventory_locations ||--o{ inventory_movements : "location_id"
+  menu_items ||--o{ recipes : "menu_item_id"
+  inventory_items ||--o{ recipe_ingredients : "inventory_item_id"
+  recipes ||--o{ recipe_ingredients : "recipe_id"
+  inventory_items ||--o{ replenishment_requests : "inventory_item_id"
+  inventory_locations ||--o{ replenishment_requests : "location_id"
+  departments ||--o{ replenishment_requests : "requesting_department_id"
+  approval_requests |o--o{ stock_adjustments : "approval_request_id"
+  inventory_items ||--o{ stock_adjustments : "inventory_item_id"
+  inventory_locations ||--o{ stock_adjustments : "location_id"
+  inventory_movements |o--o{ stock_adjustments : "movement_id"
+  inventory_items ||--o{ stock_balances : "inventory_item_id"
+  inventory_locations ||--o{ stock_balances : "location_id"
+  inventory_locations ||--o{ stock_receipts : "location_id"
+  suppliers |o--o{ stock_receipts : "supplier_id"
+  supplier_invoices |o--o{ stock_receipts : "supplier_invoice_id"
+  inventory_batches |o--o{ stock_receipt_items : "batch_id"
+  inventory_items ||--o{ stock_receipt_items : "inventory_item_id"
+  stock_receipts ||--o{ stock_receipt_items : "stock_receipt_id"
+  inventory_locations |o--o{ temperature_logs : "location_id"

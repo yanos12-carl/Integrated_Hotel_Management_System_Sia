@@ -1,0 +1,161 @@
+erDiagram
+  guests {
+    bigint id PK
+    varchar guest_code UK
+    enum status 
+    bigint created_by FK
+  }
+  guest_contacts {
+    bigint id PK
+    bigint guest_id FK
+  }
+  guest_preferences {
+    bigint id PK
+    bigint guest_id FK
+    bigint created_by FK
+  }
+  room_types {
+    bigint id PK
+    varchar code UK
+  }
+  rooms {
+    bigint id PK
+    varchar room_number UK
+    bigint room_type_id FK
+    enum status 
+  }
+  room_amenities {
+    bigint id PK
+    varchar code UK
+  }
+  room_type_amenities {
+    bigint room_type_id PK
+    bigint amenity_id PK
+  }
+  rate_plans {
+    bigint id PK
+    varchar code UK
+  }
+  room_rates {
+    bigint id PK
+    bigint rate_plan_id FK
+    bigint room_type_id FK
+    bigint created_by FK
+  }
+  room_blocks {
+    bigint id PK
+    bigint room_id FK
+    bigint work_order_id FK
+    enum status 
+    bigint created_by FK
+    bigint released_by FK
+  }
+  reservations {
+    bigint id PK
+    varchar reservation_no UK
+    bigint primary_guest_id FK
+    enum status 
+    bigint rate_plan_id FK
+    varchar idempotency_key UK
+    bigint created_by FK
+  }
+  reservation_guests {
+    bigint reservation_id PK
+    bigint guest_id PK
+  }
+  reservation_rooms {
+    bigint id PK
+    bigint reservation_id FK
+    bigint room_type_id FK
+    bigint room_id FK
+    bigint rate_plan_id FK
+    enum status 
+  }
+  reservation_status_history {
+    bigint id PK
+    bigint reservation_id FK
+    bigint changed_by FK
+  }
+  stays {
+    bigint id PK
+    bigint reservation_room_id FK
+    bigint guest_id FK
+    bigint room_id FK
+    enum status 
+    bigint checked_in_by FK
+    bigint checked_out_by FK
+    bigint checkout_approval_id FK
+    bigint active_room_id UK
+  }
+  stay_room_changes {
+    bigint id PK
+    bigint stay_id FK
+    bigint from_room_id FK
+    bigint to_room_id FK
+    bigint changed_by FK
+  }
+  room_status_history {
+    bigint id PK
+    bigint room_id FK
+    bigint stay_id FK
+    bigint changed_by FK
+  }
+  guest_requests {
+    bigint id PK
+    varchar request_no UK
+    bigint guest_id FK
+    bigint stay_id FK
+    bigint reservation_id FK
+    bigint room_id FK
+    enum status 
+    bigint created_by FK
+  }
+  guest_request_assignments {
+    bigint id PK
+    bigint guest_request_id FK
+    bigint assigned_user_id FK
+    bigint assigned_department_id FK
+    bigint assigned_by FK
+  }
+  departments {
+    bigint id PK
+  }
+  work_orders {
+    bigint id PK
+  }
+  approval_requests {
+    bigint id PK
+  }
+  guests ||--o{ guest_contacts : "guest_id"
+  guests ||--o{ guest_preferences : "guest_id"
+  guests |o--o{ guest_requests : "guest_id"
+  reservations |o--o{ guest_requests : "reservation_id"
+  rooms |o--o{ guest_requests : "room_id"
+  stays |o--o{ guest_requests : "stay_id"
+  departments |o--o{ guest_request_assignments : "assigned_department_id"
+  guest_requests ||--o{ guest_request_assignments : "guest_request_id"
+  guests ||--o{ reservations : "primary_guest_id"
+  rate_plans |o--o{ reservations : "rate_plan_id"
+  guests ||--o{ reservation_guests : "guest_id"
+  reservations ||--o{ reservation_guests : "reservation_id"
+  rate_plans |o--o{ reservation_rooms : "rate_plan_id"
+  reservations ||--o{ reservation_rooms : "reservation_id"
+  rooms |o--o{ reservation_rooms : "room_id"
+  room_types ||--o{ reservation_rooms : "room_type_id"
+  reservations ||--o{ reservation_status_history : "reservation_id"
+  room_types ||--o{ rooms : "room_type_id"
+  rooms ||--o{ room_blocks : "room_id"
+  work_orders |o--o{ room_blocks : "work_order_id"
+  rate_plans ||--o{ room_rates : "rate_plan_id"
+  room_types ||--o{ room_rates : "room_type_id"
+  rooms ||--o{ room_status_history : "room_id"
+  stays |o--o{ room_status_history : "stay_id"
+  room_amenities ||--o{ room_type_amenities : "amenity_id"
+  room_types ||--o{ room_type_amenities : "room_type_id"
+  approval_requests |o--o{ stays : "checkout_approval_id"
+  guests ||--o{ stays : "guest_id"
+  reservation_rooms ||--o{ stays : "reservation_room_id"
+  rooms ||--o{ stays : "room_id"
+  rooms ||--o{ stay_room_changes : "from_room_id"
+  stays ||--o{ stay_room_changes : "stay_id"
+  rooms ||--o{ stay_room_changes : "to_room_id"

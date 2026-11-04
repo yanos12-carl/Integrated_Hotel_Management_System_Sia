@@ -1,0 +1,14 @@
+<?php
+declare(strict_types=1);
+
+/** GENERATED from the migrations: which functional group (A-H) every table belongs to. Used by Admin > Database and by the schema tests. */
+return [
+    'A' => ['name' => 'Shared system and access control', 'tables' => ['departments', 'users', 'roles', 'permissions', 'user_roles', 'role_permissions', 'user_departments', 'login_attempts', 'sessions', 'password_resets', 'system_settings', 'notifications', 'notification_recipients', 'audit_logs', 'error_logs', 'approval_requests', 'approval_history']],
+    'B' => ['name' => 'Guests and accommodation', 'tables' => ['guests', 'guest_contacts', 'guest_preferences', 'room_types', 'rooms', 'room_amenities', 'room_type_amenities', 'rate_plans', 'room_rates', 'room_blocks', 'reservations', 'reservation_guests', 'reservation_rooms', 'reservation_status_history', 'stays', 'stay_room_changes', 'room_status_history', 'guest_requests', 'guest_request_assignments']],
+    'C' => ['name' => 'Billing and finance', 'tables' => ['suppliers', 'folios', 'folio_charges', 'invoices', 'invoice_items', 'payments', 'payment_allocations', 'deposits', 'refunds', 'financial_adjustments', 'expense_categories', 'supplier_invoices', 'expenses', 'financial_periods', 'daily_reconciliations', 'financial_transaction_refs']],
+    'D' => ['name' => 'Food and beverage', 'tables' => ['menu_categories', 'menu_items', 'restaurant_tables', 'table_reservations', 'orders', 'order_items', 'order_status_history', 'order_voids', 'room_service_charges', 'order_payments', 'order_feedback']],
+    'E' => ['name' => 'Kitchen and inventory', 'tables' => ['inventory_locations', 'inventory_items', 'recipes', 'recipe_ingredients', 'stock_balances', 'stock_receipts', 'inventory_batches', 'stock_receipt_items', 'inventory_movements', 'stock_adjustments', 'food_waste_records', 'temperature_logs', 'replenishment_requests']],
+    'F' => ['name' => 'Housekeeping', 'tables' => ['housekeeping_tasks', 'task_assignments', 'cleaning_checklists', 'checklist_items', 'task_checklist_results', 'room_inspections', 'inspection_results', 'linen_items', 'linen_movements', 'lost_found_items', 'lost_found_claims']],
+    'G' => ['name' => 'Maintenance', 'tables' => ['assets', 'maintenance_requests', 'preventive_schedules', 'work_orders', 'work_assignments', 'work_logs', 'work_order_parts', 'maintenance_costs', 'room_defects']],
+    'H' => ['name' => 'Security', 'tables' => ['security_incidents', 'incident_updates', 'incident_assignments', 'visitor_logs', 'guard_shifts', 'shift_handovers', 'patrol_schedules', 'patrol_checkpoints', 'patrol_records', 'cctv_references', 'safety_inspections', 'incidents', 'security_app_incident_updates', 'security_staff', 'cctv_cameras', 'cctv_refs', 'visitors', 'patrol_logs', 'shift_schedule', 'checkpoints', 'patrol_schedule', 'fire_inspections', 'key_logs', 'restricted_access', 'emergencies', 'case_notes', 'security_sso_tickets']],
+];

@@ -1,0 +1,177 @@
+erDiagram
+  suppliers {
+    bigint id PK
+    varchar code UK
+    varchar name UK
+  }
+  folios {
+    bigint id PK
+    varchar folio_no UK
+    bigint guest_id FK
+    bigint stay_id FK
+    bigint reservation_id FK
+    enum status 
+    bigint closed_by FK
+    bigint created_by FK
+  }
+  folio_charges {
+    bigint id PK
+    bigint folio_id FK
+    bigint reverses_charge_id FK
+    varchar idempotency_key UK
+    bigint posted_by FK
+  }
+  invoices {
+    bigint id PK
+    varchar invoice_no UK
+    bigint folio_id FK
+    bigint guest_id FK
+    bigint original_invoice_id FK
+    enum status 
+    bigint issued_by FK
+    bigint voided_by FK
+  }
+  invoice_items {
+    bigint id PK
+    bigint invoice_id FK
+    bigint folio_charge_id FK
+  }
+  payments {
+    bigint id PK
+    varchar payment_no UK
+    bigint folio_id FK
+    bigint invoice_id FK
+    bigint guest_id FK
+    enum status 
+    varchar reference_no 
+    bigint received_by FK
+    bigint verified_by FK
+    varchar idempotency_key UK
+  }
+  payment_allocations {
+    bigint id PK
+    bigint payment_id FK
+    bigint folio_charge_id FK
+    bigint invoice_id FK
+    bigint allocated_by FK
+  }
+  deposits {
+    bigint id PK
+    varchar deposit_no UK
+    bigint guest_id FK
+    bigint reservation_id FK
+    bigint payment_id FK
+    enum status 
+    bigint applied_folio_id FK
+    bigint created_by FK
+  }
+  refunds {
+    bigint id PK
+    varchar refund_no UK
+    bigint payment_id FK
+    bigint folio_id FK
+    enum status 
+    bigint approval_request_id FK
+    varchar reference_no 
+    bigint requested_by FK
+    bigint processed_by FK
+    varchar idempotency_key UK
+  }
+  financial_adjustments {
+    bigint id PK
+    varchar adjustment_no UK
+    bigint folio_id FK
+    bigint folio_charge_id FK
+    enum status 
+    bigint approval_request_id FK
+    bigint applied_charge_id FK
+    bigint created_by FK
+  }
+  expense_categories {
+    bigint id PK
+    varchar code UK
+  }
+  supplier_invoices {
+    bigint id PK
+    bigint supplier_id FK
+    varchar supplier_invoice_no 
+    enum status 
+    bigint created_by FK
+  }
+  expenses {
+    bigint id PK
+    varchar expense_no UK
+    bigint category_id FK
+    bigint supplier_id FK
+    bigint supplier_invoice_id FK
+    bigint department_id FK
+    varchar reference_no 
+    enum status 
+    bigint recorded_by FK
+    bigint approved_by FK
+  }
+  financial_periods {
+    bigint id PK
+    varchar period_code UK
+    enum status 
+    bigint closed_by FK
+  }
+  daily_reconciliations {
+    bigint id PK
+    enum status 
+    bigint reconciled_by FK
+    bigint approved_by FK
+  }
+  financial_transaction_refs {
+    bigint id PK
+    varchar txn_ref UK
+    bigint period_id FK
+  }
+  guests {
+    bigint id PK
+  }
+  reservations {
+    bigint id PK
+  }
+  departments {
+    bigint id PK
+  }
+  approval_requests {
+    bigint id PK
+  }
+  stays {
+    bigint id PK
+  }
+  folios |o--o{ deposits : "applied_folio_id"
+  guests ||--o{ deposits : "guest_id"
+  payments |o--o{ deposits : "payment_id"
+  reservations |o--o{ deposits : "reservation_id"
+  expense_categories ||--o{ expenses : "category_id"
+  departments |o--o{ expenses : "department_id"
+  suppliers |o--o{ expenses : "supplier_id"
+  supplier_invoices |o--o{ expenses : "supplier_invoice_id"
+  folio_charges |o--o{ financial_adjustments : "applied_charge_id"
+  approval_requests |o--o{ financial_adjustments : "approval_request_id"
+  folio_charges |o--o{ financial_adjustments : "folio_charge_id"
+  folios ||--o{ financial_adjustments : "folio_id"
+  financial_periods |o--o{ financial_transaction_refs : "period_id"
+  guests ||--o{ folios : "guest_id"
+  reservations |o--o{ folios : "reservation_id"
+  stays |o--o{ folios : "stay_id"
+  folios ||--o{ folio_charges : "folio_id"
+  folio_charges |o--o{ folio_charges : "reverses_charge_id"
+  folios ||--o{ invoices : "folio_id"
+  guests ||--o{ invoices : "guest_id"
+  invoices |o--o{ invoices : "original_invoice_id"
+  folio_charges |o--o{ invoice_items : "folio_charge_id"
+  invoices ||--o{ invoice_items : "invoice_id"
+  folios |o--o{ payments : "folio_id"
+  guests |o--o{ payments : "guest_id"
+  invoices |o--o{ payments : "invoice_id"
+  folio_charges |o--o{ payment_allocations : "folio_charge_id"
+  invoices |o--o{ payment_allocations : "invoice_id"
+  payments ||--o{ payment_allocations : "payment_id"
+  approval_requests |o--o{ refunds : "approval_request_id"
+  folios |o--o{ refunds : "folio_id"
+  payments ||--o{ refunds : "payment_id"
+  suppliers ||--o{ supplier_invoices : "supplier_id"

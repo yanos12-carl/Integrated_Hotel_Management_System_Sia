@@ -1,0 +1,100 @@
+erDiagram
+  housekeeping_tasks {
+    bigint id PK
+    varchar task_no UK
+    bigint room_id FK
+    bigint stay_id FK
+    enum status 
+    bigint recleaning_of_task_id FK
+    bigint created_by FK
+  }
+  task_assignments {
+    bigint id PK
+    bigint task_id FK
+    bigint user_id FK
+    bigint assigned_by FK
+  }
+  cleaning_checklists {
+    bigint id PK
+    varchar code UK
+  }
+  checklist_items {
+    bigint id PK
+    bigint checklist_id FK
+  }
+  task_checklist_results {
+    bigint id PK
+    bigint task_id FK
+    bigint checklist_item_id FK
+    bigint completed_by FK
+  }
+  room_inspections {
+    bigint id PK
+    bigint room_id FK
+    bigint task_id FK
+    bigint inspector_id FK
+  }
+  inspection_results {
+    bigint id PK
+    bigint inspection_id FK
+  }
+  linen_items {
+    bigint id PK
+    varchar code UK
+  }
+  linen_movements {
+    bigint id PK
+    bigint linen_item_id FK
+    bigint room_id FK
+    bigint location_id FK
+    bigint performed_by FK
+  }
+  lost_found_items {
+    bigint id PK
+    varchar item_no UK
+    bigint found_room_id FK
+    bigint guest_id FK
+    bigint found_by FK
+    enum status 
+    bigint security_incident_id FK
+  }
+  lost_found_claims {
+    bigint id PK
+    bigint item_id FK
+    bigint guest_id FK
+    enum status 
+    bigint handled_by FK
+  }
+  rooms {
+    bigint id PK
+  }
+  stays {
+    bigint id PK
+  }
+  inventory_locations {
+    bigint id PK
+  }
+  guests {
+    bigint id PK
+  }
+  security_incidents {
+    bigint id PK
+  }
+  cleaning_checklists ||--o{ checklist_items : "checklist_id"
+  housekeeping_tasks |o--o{ housekeeping_tasks : "recleaning_of_task_id"
+  rooms |o--o{ housekeeping_tasks : "room_id"
+  stays |o--o{ housekeeping_tasks : "stay_id"
+  room_inspections ||--o{ inspection_results : "inspection_id"
+  linen_items ||--o{ linen_movements : "linen_item_id"
+  inventory_locations |o--o{ linen_movements : "location_id"
+  rooms |o--o{ linen_movements : "room_id"
+  guests |o--o{ lost_found_claims : "guest_id"
+  lost_found_items ||--o{ lost_found_claims : "item_id"
+  security_incidents |o--o{ lost_found_items : "security_incident_id"
+  rooms |o--o{ lost_found_items : "found_room_id"
+  guests |o--o{ lost_found_items : "guest_id"
+  rooms ||--o{ room_inspections : "room_id"
+  housekeeping_tasks |o--o{ room_inspections : "task_id"
+  housekeeping_tasks ||--o{ task_assignments : "task_id"
+  checklist_items ||--o{ task_checklist_results : "checklist_item_id"
+  housekeeping_tasks ||--o{ task_checklist_results : "task_id"
