@@ -1,0 +1,31 @@
+[2026-11-03 00:22:48] ERROR Unhandled exception {"error_id":"d9f5b32cc0f2","class":"RuntimeException","message":"SQLSTATE secret detail","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\run.php","line":82}
+[2026-11-03 00:22:57] ERROR Unhandled exception {"error_id":"2b74258b2fe7","class":"PDOException","message":"SQLSTATE[HY000]: General error: 2006 MySQL server has gone away","file":"C:\\xampp\\htdocs\\hotel-management-system\\app\\Core\\Database.php","line":71}
+[2026-11-03 00:22:57] ERROR Session read failed {"error":"SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"}
+[2026-11-03 00:22:57] ERROR Session write failed {"error":"SQLSTATE[HY000]: General error: 2006 MySQL server has gone away"}
+[2026-11-03 00:23:49] ERROR Database connection failed {"driver_message":"SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it"}
+[2026-11-03 00:23:49] ERROR Unhandled exception {"error_id":"3cb7b3f72924","class":"RuntimeException","message":"SQLSTATE secret detail","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\run.php","line":82}
+[2026-11-03 00:23:51] ERROR Database connection failed {"driver_message":"SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it"}
+[2026-11-03 00:23:53] ERROR Database connection failed {"driver_message":"SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it"}
+[2026-11-03 00:48:58] ERROR Database connection failed {"driver_message":"SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it"}
+[2026-11-03 00:49:00] ERROR Database connection failed {"driver_message":"SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it"}
+[2026-11-03 00:49:00] ERROR Session read failed {"error":"Database connection failed."}
+[2026-11-03 00:49:02] ERROR Database connection failed {"driver_message":"SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it"}
+[2026-11-03 00:49:02] ERROR Session write failed {"error":"Database connection failed."}
+[2026-11-03 00:49:04] ERROR Database connection failed {"driver_message":"SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it"}
+[2026-11-03 00:49:06] ERROR Database connection failed {"driver_message":"SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it"}
+[2026-11-03 00:49:06] ERROR Unhandled exception {"error_id":"173ebc7829d4","class":"RuntimeException","message":"Database connection failed.","file":"C:\\xampp\\htdocs\\hotel-management-system\\app\\Core\\Database.php","line":33}
+[2026-11-03 00:49:08] ERROR Database connection failed {"driver_message":"SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it"}
+[2026-11-03 00:49:26] ERROR Unhandled exception {"error_id":"f4173a05534b","class":"RuntimeException","message":"SQLSTATE secret detail","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\run.php","line":82}
+[2026-11-03 00:49:34] ERROR Unhandled exception {"error_id":"ae736a5c873e","class":"RuntimeException","message":"boom secret","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\phase3.php","line":411}
+[2026-11-03 00:50:25] ERROR Unhandled exception {"error_id":"0cc3e722c774","class":"RuntimeException","message":"SQLSTATE secret detail","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\run.php","line":82}
+[2026-11-03 00:50:33] ERROR Unhandled exception {"error_id":"4c2665b1a531","class":"RuntimeException","message":"boom secret","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\phase3.php","line":411}
+[2026-11-03 01:04:50] ERROR Unhandled exception {"error_id":"5b31621459b2","class":"RuntimeException","message":"SQLSTATE secret detail","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\run.php","line":82}
+[2026-11-03 01:04:57] ERROR Unhandled exception {"error_id":"f16fb851b461","class":"RuntimeException","message":"boom secret","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\phase3.php","line":411}
+[2026-11-03 01:08:47] ERROR Unhandled exception {"error_id":"41450ae1290d","class":"RuntimeException","message":"SQLSTATE secret detail","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\run.php","line":82}
+[2026-11-03 01:08:55] ERROR Unhandled exception {"error_id":"4f1268155d9a","class":"RuntimeException","message":"boom secret","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\phase3.php","line":411}
+[2026-11-03 01:13:45] ERROR Unhandled exception {"error_id":"07e1ec99b578","class":"RuntimeException","message":"SQLSTATE secret detail","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\run.php","line":82}
+[2026-11-03 01:13:53] ERROR Unhandled exception {"error_id":"8532798e67c8","class":"RuntimeException","message":"boom secret","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\phase3.php","line":411}
+[2026-11-03 01:43:23] ERROR Unhandled exception {"error_id":"8c82ff15238e","class":"RuntimeException","message":"SQLSTATE secret detail","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\run.php","line":82}
+[2026-11-03 01:43:31] ERROR Unhandled exception {"error_id":"eb930f55b477","class":"RuntimeException","message":"boom secret","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\phase3.php","line":412}
+[2026-11-03 01:45:09] ERROR Unhandled exception {"error_id":"6b9d4a3c5ac4","class":"RuntimeException","message":"SQLSTATE secret detail","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\run.php","line":82}
+[2026-11-03 01:45:16] ERROR Unhandled exception {"error_id":"0565fde97605","class":"RuntimeException","message":"boom secret","file":"C:\\xampp\\htdocs\\hotel-management-system\\tests\\phase3.php","line":412}
